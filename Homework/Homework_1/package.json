@@ -1,0 +1,14 @@
+{
+    "name": "homework_express.js",
+    "version": "0.0.1",
+    "description": "숙제",
+    "main": "homework_express.js",
+    "scripts": {
+        "start": "nodemon app"
+    },
+    "author": "Seung jun",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
