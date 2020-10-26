@@ -24,3 +24,25 @@ $('.slide-next').on('click', function(){
         show = show - 1;
     }
 });
+
+// $(window).on('scroll', function(){
+//     $('.nav-munu').addClass('nav-black');
+// })
+
+// $(window).on('scroll', function(){
+//     if($(window).scrollTop() > 200) {
+//         $('.nav-munu').addClass('nav-black');
+//         //$('.nav-munu h4').addClass('small-logo');
+//     }
+// })
+
+$(window).on('scroll',function(){
+    if($(window).scrollTop()>=200){
+        $('.nav-menu').css({backgroundColor:'black', color:'white'});
+        $('.nav-menu').css("font-size", "10px")
+    }
+    if($(window).scrollTop()<200){
+        $('.nav-menu').css({backgroundColor:'white', color:'black'})
+        $('.nav-menu').css("font-size", "18px")
+    }
+})
