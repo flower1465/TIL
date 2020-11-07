@@ -1,2 +1,2 @@
 # TIL
-Today I Learn
+간단히 공부한 것을 올리는 레포지토리
