@@ -1,155 +1,169 @@
-#include "CMyString.h"
+﻿#define _CRT_SECURE_NO_WARNINGS
 
-CMyString::CMyString(const CMyString& rhs)
-//	:	m_nData(rhs.m_nData)
-{
-	m_nLength = strlen(rhs.GetString());
-	m_pszData = new char[m_nLength + 1];
-	strcpy(m_pszData, rhs.GetString());
-	cout << "CMyData(const	CMyData	&)" << endl;
-}
+#include "CMyString.h"
+#include <iostream>
 
 CMyString::CMyString()
-	:m_pszData(nullptr)
-	, m_nLength(0)
+	:m_pszData(nullptr),
+	m_nLength(0)
 {
-	//cout << "default constructor" << endl;
-
 }
 
-const char* CMyString::GetString() const {
-	if (m_pszData != nullptr)
-		return m_pszData;
-	return "";
-}
-
-
-//int CMyString::SetString(const char* pszparm) {
-//	m_nLength = strlen(pszparm);
-//	if (m_nLength > 0) {
-//		m_pszData = new char[m_nLength + 1];
-//		strcpy(m_pszData, pszparm);
-//	}
-//	return 0;
-//}
-
-CMyString& CMyString::operator=(const CMyString& rhs) {
-	m_nLength = strlen(rhs.GetString());
-	if (m_pszData != NULL) {
-		delete[] m_pszData;
-	}
-
-	m_pszData = new char[m_nLength + 1];
-	strcpy(m_pszData, rhs.GetString());
-	//	��ü	�ڽſ�	����	������	��ȯ�Ѵ�.
-	return	*this;
+CMyString::CMyString(const CMyString& param)
+{
+	SetString(param.m_pszData);
 }
 
 CMyString::CMyString(CMyString&& rhs)
-	:m_pszData(nullptr)
-	, m_nLength(0)
+	:m_nLength(0),
+	m_pszData(nullptr)
 {
-	cout << "CMyString �̵������� ȣ��" << endl;
-
-	m_pszData = rhs.m_pszData;
+	cout << "CMyString 이동생성자 호출" << endl;
 	m_nLength = rhs.m_nLength;
+	m_pszData = rhs.m_pszData;
 
-	rhs.m_pszData = nullptr;
+	// pointe를 끊어 준다:shallow 복사 이동생성으로 생성한 객체에서 삭제를 할 것이기 때문
 	rhs.m_nLength = 0;
+	rhs.m_pszData = nullptr;
 }
 
-CMyString::~CMyString() { /*cout << "�Ҹ�" << endl;*/ }
-
-CMyString::operator char* () const { return m_pszData; }
-
-int CMyString::GetLength() const { return m_nLength; }
-
-int CMyString::Append(const char* pszParam) {
-	if (pszParam == NULL)
-		return 0;
-
-	int nLenParam = strlen(pszParam);
-	if (nLenParam == 0)
-		return 0;
-
-	if (m_pszData == NULL) {
-		SetString(m_pszData);
-		return m_nLength;
-	}
-
-	int nLenCur = m_nLength;
-
-	char* result = new char[m_nLength + nLenParam + 1];
-
-	strcpy(result, m_pszData);
-	strcpy(result + nLenCur, pszParam);
-
-	Release();
-
-	m_pszData = result;
-	m_nLength = nLenCur + nLenParam;
-
-	return m_nLength;
-}
-
-void CMyString::Release() {
-	if (m_pszData != nullptr) {
-		delete[] m_pszData;
-		m_pszData = nullptr;
-	}
-}
-
-CMyString::CMyString(const	char* pszParam)
+CMyString::CMyString(const char* pszParam)
 	:m_pszData(nullptr)
 	, m_nLength(0)
 {
 	SetString(pszParam);
 }
 
-CMyString CMyString::operator+(const CMyString& rhs) {
-	CMyString result(m_pszData);
-	result.Append(rhs.m_pszData);
-	return result;
+int CMyString::GetLength() const
+{
+	return m_nLength;
 }
 
-CMyString& CMyString::operator+=(const CMyString& rhs) {
-	Append(rhs.m_pszData);
+int CMyString::Append(const char* pszParam)
+{
+	if (pszParam == nullptr) {
+		return 0;
+	}
+	const int targetLength = strlen(pszParam);
+	const int srcLength = strlen(this->m_pszData);
+
+	char* newData = new char[srcLength + targetLength + 1];
+
+	strcpy(newData, m_pszData);
+	strcpy(newData + srcLength, pszParam);
+
+	Release();
+
+	m_pszData = newData;
+	m_nLength = targetLength + srcLength;
+
+	return m_nLength;
+}
+
+CMyString& CMyString::operator=(const CMyString& param)
+{
+	if (m_pszData != NULL) {
+		delete[] m_pszData;
+	}
+	if (this == &param) {
+		return *this;
+	}
+	m_nLength = param.m_nLength;
+	m_pszData = new char[m_nLength + 1];
+	strcpy(m_pszData, param.m_pszData);
 	return *this;
 }
 
-char& CMyString::operator[](int nIndex) {
-	return m_pszData[nIndex];
+CMyString::operator char* () const
+{
+	return m_pszData;
 }
 
-char CMyString::operator[](int nIndex) const {
-	return m_pszData[nIndex];
+CMyString CMyString::operator+(const CMyString& rhs)
+{
+	CMyString src(*this);
+
+	src.Append(rhs.m_pszData);
+
+	return src;
 }
 
-int CMyString::operator==(const CMyString& rhs) {
-	if (m_pszData != NULL && rhs.m_pszData != NULL) {
-		if (strcmp(m_pszData, rhs.m_pszData) == 0)
+CMyString& CMyString::operator+=(const CMyString& rhs)
+{
+	this->Append(rhs.m_pszData);
+	return *this;
+}
+
+char& CMyString::operator[](int index)
+{
+	return this->m_pszData[index];
+}
+
+char CMyString::operator[](int index) const
+{
+	return this->m_pszData[index];
+}
+
+int CMyString::operator==(const CMyString& rhs)
+{
+	if (this->m_pszData != nullptr && rhs.m_pszData != nullptr) {
+		if (strcmp(this->m_pszData, rhs.m_pszData) == 0) {
 			return 1;
-
+		}
 	}
 	return 0;
 }
 
-int CMyString::operator!=(const CMyString& rhs) {
-	if (m_pszData != NULL && rhs.m_pszData != NULL) {
-		if (strcmp(m_pszData, rhs.m_pszData) == 0)
+int CMyString::operator!=(const CMyString& rhs)
+{
+	if (this->m_pszData != nullptr && rhs.m_pszData != nullptr) {
+		if (strcmp(this->m_pszData, rhs.m_pszData) == 0) {
 			return 0;
-
+		}
 	}
 	return 1;
 }
-void CMyString::SetString(const char* pszparm) {
-	int size = strlen(pszparm) + 1;
-	if (size == 1)
+
+// 멤버변수 m_pszData에 할당된 메모리를 해제하고 NULL로 초기화
+void CMyString::Release()
+{
+	if (m_pszData == nullptr) {
 		return;
-	m_pszData = new char[size];
-	strcpy(m_pszData, pszparm);
+	}
+	delete[] m_pszData;
+	m_pszData = nullptr;
+	m_nLength = 0;
+	// TODO: 여기에 구현 코드 추가.
 }
 
-char* CMyString::GetString() {
+// 매개변수로 받은 문자열을 멤버변수에 저장하는 함수
+int CMyString::SetString(const char* pszParam)
+{
+	Release();
+
+	m_nLength = strlen(pszParam);
+
+	if (pszParam == nullptr || m_nLength == 0) {
+		return -1;
+	}
+
+	m_pszData = new char[m_nLength + 1];
+	strcpy(m_pszData, pszParam);
+
+	return 0;
+}
+
+// 멤버변수에 저장된 문자열을 가져오는 함수
+const char* CMyString::GetString() const
+{
+	// TODO: 여기에 구현 코드 추가.
+	if (m_pszData == nullptr) {
+		return "문자열이 저장되지 않음";
+	}
 	return m_pszData;
+}
+
+CMyString::~CMyString()
+{
+	Release();
 }

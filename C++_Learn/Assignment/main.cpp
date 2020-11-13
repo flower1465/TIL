@@ -1,19 +1,21 @@
 ﻿#include <iostream>
 #include "CMyString.h"
-#include "CMyStringEX.h"
+#include "CMyStringEx.h"
 
-using namespace	std;
+using namespace std;
+
 int	main()
 {
 	CMyStringEx	strTest;
 
-	strTest.SetString("학번 : 1204, 이름 : 박승준");	// 학번과 이름은	 본인 것으로 수정!!!
-
+	// 문자열이 필터링 되어 대체되는 경우
+	strTest.SetString("멍멍이아들");
 	cout << strTest << endl;
 
-	int	nIndex = strTest.Find("박승준");	// 본인 이름으로 수정
+	// 필터링 되지 않는 경우
+	strTest.SetString("학번 : 1204, 이름 : 박승준");	// 학번과 이름은	본인	것으로 수정!!!
 
-	cout << "Index : " << nIndex << endl;
+	cout << strTest << endl;
 
 	return	0;
 }
@@ -25,8 +27,26 @@ int	main()
 
 
 
-
-
+//9번
+//#include <iostream>
+//#include "CMyString.h"
+//#include "CMyStringEX.h"
+//
+//using namespace	std;
+//int	main()
+//{
+//	CMyStringEx	strTest;
+//
+//	strTest.SetString("학번 : 1204, 이름 : 박승준");	// 학번과 이름은	 본인 것으로 수정!!!
+//
+//	cout << strTest << endl;
+//
+//	int	nIndex = strTest.Find("박승준");	// 본인 이름으로 수정
+//
+//	cout << "Index : " << nIndex << endl;
+//
+//	return	0;
+//}
 
 //8번
 //#include <iostream>
@@ -81,9 +101,6 @@ int	main()
 //}
 
 
-
-
-
 //6번
 //#include	<iostream>
 //#include	"CMyString.h"
@@ -101,9 +118,6 @@ int	main()
 //
 //	return	0;
 //}
-
-
-
 
 
 // 5번
@@ -126,12 +140,6 @@ int	main()
 //	return	0;
 //}
 
-
-
-
-
-
-
 // 4번
 //#include	<iostream>
 //#include	"CMyString.h"
@@ -152,20 +160,6 @@ int	main()
 //	
 //	return	0;
 //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // 3번

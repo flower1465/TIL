@@ -1,15 +1,27 @@
-#include "./CMyStringEX.h"
-#include <string.h>
-#include "CMyString.h"
+﻿#include "CMyString.h"
 #include "CMyString.cpp"
+#include "CMyStringEx.h"
 
-int CMyStringEx::Find(const char* Param) {
-	char* buf = GetString();
-	if (buf == NULL)
-		return -1;
-	char* index = strstr(buf, Param);
-	if (index == NULL)
-		return -1;
-	return (int)(index - buf);
+CMyStringEx::CMyStringEx(const char* pszData)
+{
+	this->SetString(pszData);
+}
 
+int CMyStringEx::Find(const char* pszData)
+{
+	const char* result = strstr(this->GetString(), pszData);
+	if (result != nullptr) {
+		return (result - this->GetString()) / sizeof(char);
+	}
+	return -1;
+}
+
+int CMyStringEx::SetString(const char* pszParam)
+{
+	if (!strcmp(pszParam, "멍멍이아들")) {
+		return CMyString::SetString("좋은 사람");
+	}
+	else {
+		return CMyString::SetString(pszParam);
+	}
 }
