@@ -38,13 +38,17 @@ public:
 
 	~CMyString();
 
-	void Release();
-private:
-	char* m_pszData;
-
-	int m_nLength;
-public:
 	int SetString(const char*);
 
 	const char* GetString() const;
+
+	void Release();
+
+	virtual void OnSetString(char* pszData, int nLength);
+private:
+
+	char* m_pszData;
+
+	int m_nLength;
 };
+

@@ -1,6 +1,7 @@
-﻿#include "CMyString.h"
-#include "CMyString.cpp"
+﻿#define _CRT_SECURE_NO_WARNINGS
+
 #include "CMyStringEx.h"
+#include <string.h>
 
 CMyStringEx::CMyStringEx(const char* pszData)
 {
@@ -16,12 +17,9 @@ int CMyStringEx::Find(const char* pszData)
 	return -1;
 }
 
-int CMyStringEx::SetString(const char* pszParam)
+void CMyStringEx::OnSetString(char* pszData, int nLength)
 {
-	if (!strcmp(pszParam, "멍멍이아들")) {
-		return CMyString::SetString("좋은 사람");
-	}
-	else {
-		return CMyString::SetString(pszParam);
+	if (!(strcmp(pszData, "멍멍이아들"))) {
+		strcpy(pszData, "*착한아들*");
 	}
 }

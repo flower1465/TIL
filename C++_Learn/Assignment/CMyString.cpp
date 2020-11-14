@@ -127,12 +127,11 @@ int CMyString::operator!=(const CMyString& rhs)
 // 멤버변수 m_pszData에 할당된 메모리를 해제하고 NULL로 초기화
 void CMyString::Release()
 {
-	if (m_pszData == nullptr) {
-		return;
+	if (m_pszData) {
+		delete[] m_pszData;
+		m_pszData = nullptr;
+		m_nLength = 0;
 	}
-	delete[] m_pszData;
-	m_pszData = nullptr;
-	m_nLength = 0;
 	// TODO: 여기에 구현 코드 추가.
 }
 
@@ -150,6 +149,7 @@ int CMyString::SetString(const char* pszParam)
 	m_pszData = new char[m_nLength + 1];
 	strcpy(m_pszData, pszParam);
 
+	OnSetString(m_pszData, m_nLength);
 	return 0;
 }
 
@@ -166,4 +166,9 @@ const char* CMyString::GetString() const
 CMyString::~CMyString()
 {
 	Release();
+}
+
+void CMyString::OnSetString(char* pszData, int nLength)
+{
+
 }

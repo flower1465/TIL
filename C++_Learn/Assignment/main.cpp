@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 #include "CMyString.h"
 #include "CMyStringEx.h"
 
@@ -8,17 +9,43 @@ int	main()
 {
 	CMyStringEx	strTest;
 
-	// 문자열이 필터링 되어 대체되는 경우
 	strTest.SetString("멍멍이아들");
 	cout << strTest << endl;
 
-	// 필터링 되지 않는 경우
-	strTest.SetString("학번 : 1204, 이름 : 박승준");	// 학번과 이름은	본인	것으로 수정!!!
-
+	strTest.SetString("학번: 1204, 이름: 박승준");
 	cout << strTest << endl;
-
+	
 	return	0;
 }
+
+
+
+
+
+
+
+//10번 11번
+//#include <iostream>
+//#include "CMyString.h"
+//#include "CMyStringEx.h"
+//
+//using namespace std;
+//
+//int	main()
+//{
+//	CMyStringEx	strTest;
+//
+//	// 문자열이 필터링 되어 대체되는 경우
+//	strTest.SetString("멍멍이아들");
+//	cout << strTest << endl;
+//
+//	// 필터링 되지 않는 경우
+//	strTest.SetString("학번 : 1204, 이름 : 박승준");	// 학번과 이름은	본인	것으로 수정!!!
+//
+//	cout << strTest << endl;
+//
+//	return	0;
+//}
 
 
 
