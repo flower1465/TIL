@@ -5,52 +5,50 @@
 
 using namespace std;
 
-class CMyString {
-private:
-	/*char* m_pszData;*/
-	int m_nLength;
-	char* m_pszData = nullptr;
+class CMyString
+{
 public:
-	//int SetString(const char* pszparm);
+	CMyString();
 
-	const char* GetString() const;
+	CMyString(const CMyString&);
 
-	explicit CMyString(const CMyString& rhs);
+	explicit CMyString(const char*);
 
-	CMyString(CMyString&& rhs);
-
-	explicit CMyString();
-
-	explicit CMyString(const char* pszParam);
-
-	CMyString& operator=(const CMyString& rhs);
-
-	~CMyString();
-
-	void Release();
-
-	CMyString operator+(const CMyString& rhs);
-
-	CMyString& operator+=(const CMyString& rhs);
-
-	operator char* () const;
+	CMyString(CMyString&&);
 
 	int GetLength() const;
 
-	int Append(const char* pszParam);
+	int Append(const char*);
 
-	char& operator[](int nIndex);
-	char operator[](int nIndex) const;
+	operator char* () const;
 
-	int operator==(const CMyString& rhs);
-	int operator!=(const CMyString& rhs);
+	CMyString& operator=(const CMyString&);
 
-	operator char* ()
-	{
-		if (m_pszData == nullptr)
-			return NULL;
-		return m_pszData;
-	}
-	void SetString(const char* pszparm);
-	char* GetString();
+	CMyString operator+(const CMyString&);
+
+	CMyString& operator+=(const CMyString&);
+
+	char& operator[](int);
+
+	char operator[](int) const;
+
+	int operator==(const CMyString&);
+
+	int operator!=(const CMyString&);
+
+	~CMyString();
+
+	int SetString(const char*);
+
+	const char* GetString() const;
+
+	void Release();
+
+	virtual void OnSetString(char* pszData, int nLength);
+private:
+
+	char* m_pszData;
+
+	int m_nLength;
 };
+
