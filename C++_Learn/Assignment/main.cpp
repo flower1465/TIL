@@ -1,20 +1,20 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+﻿#include <iostream>
 #include "CMyString.h"
-#include "CMyStringEx.h"
+#include "CMyStringEX.h"
 
-using namespace std;
-
+using namespace	std;
 int	main()
 {
 	CMyStringEx	strTest;
 
-	strTest.SetString("멍멍이아들");
+	strTest.SetString("학번 : 1204, 이름 : 박승준");	// 학번과 이름은	 본인 것으로 수정!!!
+
 	cout << strTest << endl;
 
-	strTest.SetString("학번: 1204, 이름: 박승준");
-	cout << strTest << endl;
-	
+	int	nIndex = strTest.Find("박승준");	// 본인 이름으로 수정
+
+	cout << "Index : " << nIndex << endl;
+
 	return	0;
 }
 
@@ -24,56 +24,9 @@ int	main()
 
 
 
-//10번 11번
-//#include <iostream>
-//#include "CMyString.h"
-//#include "CMyStringEx.h"
-//
-//using namespace std;
-//
-//int	main()
-//{
-//	CMyStringEx	strTest;
-//
-//	// 문자열이 필터링 되어 대체되는 경우
-//	strTest.SetString("멍멍이아들");
-//	cout << strTest << endl;
-//
-//	// 필터링 되지 않는 경우
-//	strTest.SetString("학번 : 1204, 이름 : 박승준");	// 학번과 이름은	본인	것으로 수정!!!
-//
-//	cout << strTest << endl;
-//
-//	return	0;
-//}
 
 
 
-
-
-
-
-
-//9번
-//#include <iostream>
-//#include "CMyString.h"
-//#include "CMyStringEX.h"
-//
-//using namespace	std;
-//int	main()
-//{
-//	CMyStringEx	strTest;
-//
-//	strTest.SetString("학번 : 1204, 이름 : 박승준");	// 학번과 이름은	 본인 것으로 수정!!!
-//
-//	cout << strTest << endl;
-//
-//	int	nIndex = strTest.Find("박승준");	// 본인 이름으로 수정
-//
-//	cout << "Index : " << nIndex << endl;
-//
-//	return	0;
-//}
 
 //8번
 //#include <iostream>
@@ -128,6 +81,9 @@ int	main()
 //}
 
 
+
+
+
 //6번
 //#include	<iostream>
 //#include	"CMyString.h"
@@ -145,6 +101,9 @@ int	main()
 //
 //	return	0;
 //}
+
+
+
 
 
 // 5번
@@ -167,6 +126,12 @@ int	main()
 //	return	0;
 //}
 
+
+
+
+
+
+
 // 4번
 //#include	<iostream>
 //#include	"CMyString.h"
@@ -187,6 +152,20 @@ int	main()
 //	
 //	return	0;
 //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 3번

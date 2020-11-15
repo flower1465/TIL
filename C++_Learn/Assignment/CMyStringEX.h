@@ -1,18 +1,7 @@
 #pragma once
-#include "CMyString.h"
+#include "../Homework C++/CMyString.h"
 
-class CMyStringEx :
-	public CMyString
-{
+class CMyStringEx : public CMyString {
 public:
-	CMyStringEx() {}
-
-	~CMyStringEx() {}
-
-	CMyStringEx(const char* pszData);
-
-	int Find(const char* pszData);
-
-	virtual void OnSetString(char* pszData, int nLength);
+	int Find(const char* pszParam);
 };
-

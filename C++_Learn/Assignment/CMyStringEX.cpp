@@ -1,25 +1,15 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-
-#include "CMyStringEx.h"
+#include "./CMyStringEX.h"
 #include <string.h>
+#include "CMyString.h"
+#include "CMyString.cpp"
 
-CMyStringEx::CMyStringEx(const char* pszData)
-{
-	this->SetString(pszData);
-}
+int CMyStringEx::Find(const char* Param) {
+	char* buf = GetString();
+	if (buf == NULL)
+		return -1;
+	char* index = strstr(buf, Param);
+	if (index == NULL)
+		return -1;
+	return (int)(index - buf);
 
-int CMyStringEx::Find(const char* pszData)
-{
-	const char* result = strstr(this->GetString(), pszData);
-	if (result != nullptr) {
-		return (result - this->GetString()) / sizeof(char);
-	}
-	return -1;
-}
-
-void CMyStringEx::OnSetString(char* pszData, int nLength)
-{
-	if (!(strcmp(pszData, "멍멍이아들"))) {
-		strcpy(pszData, "*착한아들*");
-	}
 }
