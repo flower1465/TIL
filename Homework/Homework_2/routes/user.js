@@ -37,7 +37,7 @@ router.post("/login", middleware, async (req, res) => {
       },
       secret,
       {
-        expiresIn: "1h",
+        expiresIn: "24h",
       }
     );
     res.status(200).json({
