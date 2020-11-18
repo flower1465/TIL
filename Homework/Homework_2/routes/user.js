@@ -5,7 +5,6 @@ const middleware = require("../middleware/token");
 
 router.post("/signup", async (req, res) => {
   const { userId, password } = req.body;
-  console.log(userId, password);
   try {
     await User.create({
       userId,
