@@ -1,8 +1,11 @@
 const router = require("express").Router();
+const jwt = require("jsonwebtoken");
+const { User } = require("../models");
 const middleware = require("../middleware/token");
 
 router.post("/signup", async (req, res) => {
   const { userId, password } = req.body;
+  console.log(userId, password);
   try {
     await User.create({
       userId,
@@ -19,7 +22,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", middleware, async (req, res) => {
   const { userId, password } = req.body;
   const secret = req.app.get("jwt-secret");
   try {
@@ -29,9 +32,12 @@ router.post("/login", async (req, res) => {
     if (user.password !== password) {
       throw new Error();
     }
-    const token = jwt.sign({
+    const token = jwt.sign(
+      {
         userId,
-      }, secret, {
+      },
+      secret,
+      {
         expiresIn: "1h",
       }
     );

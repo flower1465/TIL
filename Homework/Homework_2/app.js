@@ -16,6 +16,7 @@ app.use(
   session({
     resave: false,
     saveUninitialized: false,
+    secret: process.env.Cookie,
   })
 );
 
@@ -26,7 +27,7 @@ sequelize
   .then(() => {
     console.log("데이터베이스 연결 성공");
   })
-  .catch(() => {
+  .catch((err) => {
     console.error(err);
   });
 
