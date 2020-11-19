@@ -24,7 +24,7 @@ router.post("/create", async (req, res) => {
 router.post("/delete", async (req, res) => {
   const { text } = req.body;
   try {
-    await Post.create({
+    await Post.delete({
       text,
     });
     res.status(200).json({
@@ -41,7 +41,7 @@ router.post("/delete", async (req, res) => {
 router.post("/update", async (req, res) => {
   const { text } = req.body;
   try {
-    await Post.create({
+    await Post.update({
       text,
     });
     res.status(200).json({
@@ -58,7 +58,7 @@ router.post("/update", async (req, res) => {
 router.post("/read", async (req, res) => {
   const { text } = req.body;
   try {
-    await Post.create({
+    await Post.select({
       text,
     });
     res.status(200).json({
