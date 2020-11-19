@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const config = require("../config/config.json")["development"];
 const User = require("./user");
+const Post = require("./posts");
 
 sequelize = new Sequelize(
   config.database,
@@ -15,5 +16,6 @@ User.init(sequelize);
 
 db.sequelize = sequelize;
 db.User = User;
+db.Post = Post;
 
 module.exports = db;
