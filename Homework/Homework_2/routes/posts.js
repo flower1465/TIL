@@ -16,7 +16,7 @@ router.post("/create", async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    res.status(409).json({
+    res.status(400).json({
       message: "실패하셧습니다.",
     });
   }
@@ -35,8 +35,8 @@ router.delete("/delete/:id", async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    res.status(409).json({
-      message: "실패하셧습니다.",
+    res.status(404).json({
+      message: "데이터베이스를 찾을 수 없습니다.",
     });
   }
 });
@@ -63,8 +63,8 @@ router.patch("/update/:id", async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    res.status(409).json({
-      message: "실패하셧습니다.",
+    res.status(404).json({
+      message: "데이터베이스를 찾을 수 없습니다.",
     });
   }
 });
@@ -85,8 +85,8 @@ router.get("/read/:id", async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    res.status(409).json({
-      message: "실패하셧습니다.",
+    res.status(404).json({
+      message: "데이터베이스를 찾을 수 없습니다..",
     });
   }
 });
