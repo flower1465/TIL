@@ -6,7 +6,6 @@ const { Post, User } = require("../models");
 
 router.post("/create", async (req, res) => {
   const text = req.body;
-  console.log(text);
   try {
     await Post.create({
       title: text.title,
@@ -23,11 +22,11 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.post("/delete", async (req, res) => {
-  const { deleteID } = req.body;
+router.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id;
   try {
     await Post.destroy({
-      where: { id: deleteID },
+      where: { id },
     });
     res.status(200).json({
       message: "성공",
@@ -40,8 +39,9 @@ router.post("/delete", async (req, res) => {
   }
 });
 
-router.post("/update", async (req, res) => {
-  const { updateText, updateID } = req.body;
+router.patch("/update/:id", async (req, res) => {
+  const updateID = req.params.id;
+  const updateText = req.body;
   try {
     await Post.update(
       {
@@ -63,12 +63,12 @@ router.post("/update", async (req, res) => {
   }
 });
 
-router.get("/read", async (req, res) => {
-  const { readID } = req.body;
-  console.log(readID);
+router.get("/read/:id", async (req, res) => {
+  const id = req.params.id;
   try {
-    const postReadText = await Post.findAll({
-      where: { id: readID.id },
+    const postReadText = await Post.findOne({
+      where: { id },
+      attributes: ["title", "writer"],
     });
     res.status(200).json({
       message: postReadText,
