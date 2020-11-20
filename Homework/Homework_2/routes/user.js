@@ -6,6 +6,16 @@ const middleware = require("../middleware/token");
 router.post("/signup", async (req, res) => {
   const { userId, password } = req.body;
   try {
+    const ID = await User.findOne({
+      where: {
+        userId,
+      },
+    });
+    if (ID) {
+      res.status(410).json({
+        message: "ID 중복",
+      });
+    }
     await User.create({
       userId,
       password,

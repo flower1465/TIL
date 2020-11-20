@@ -1,14 +1,16 @@
 const router = require("express").Router();
-const { Post } = require("../models");
+const { Post, User } = require("../models");
 
 // const jwt = require("jsonwebtoken");
 // const middleware = require("../middleware/token");
 
 router.post("/create", async (req, res) => {
-  const { text } = req.body;
+  const text = req.body;
+  console.log(text);
   try {
     await Post.create({
-      text,
+      title: text.title,
+      writer: text.writer,
     });
     res.status(200).json({
       message: "성공",
@@ -22,10 +24,10 @@ router.post("/create", async (req, res) => {
 });
 
 router.post("/delete", async (req, res) => {
-  const { text } = req.body;
+  const { deleteID } = req.body;
   try {
     await Post.destroy({
-      text,
+      where: { id: deleteID },
     });
     res.status(200).json({
       message: "성공",
@@ -39,11 +41,17 @@ router.post("/delete", async (req, res) => {
 });
 
 router.post("/update", async (req, res) => {
-  const { text } = req.body;
+  const { updateText, updateID } = req.body;
   try {
-    await Post.update({
-      text,
-    });
+    await Post.update(
+      {
+        title: updateText.title,
+        writer: updateText.writer,
+      },
+      {
+        where: { id: updateID },
+      }
+    );
     res.status(200).json({
       message: "성공",
     });
@@ -55,14 +63,15 @@ router.post("/update", async (req, res) => {
   }
 });
 
-router.post("/read", async (req, res) => {
-  const { text } = req.body;
+router.get("/read", async (req, res) => {
+  const { readID } = req.body;
+  console.log(readID);
   try {
-    await Post.findAll({
-      text,
+    const postReadText = await Post.findAll({
+      where: { id: readID.id },
     });
     res.status(200).json({
-      message: "성공",
+      message: postReadText,
     });
   } catch (err) {
     console.log(err.message);
