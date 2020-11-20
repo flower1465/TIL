@@ -25,9 +25,11 @@ router.post("/create", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    await Post.destroy({
-      where: { id },
-    });
+    const post = await Post.findOne({ where: { id } });
+    if (!post) {
+      throw new Error();
+    }
+    await post.destroy();
     res.status(200).json({
       message: "성공",
     });
@@ -40,16 +42,20 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 router.patch("/update/:id", async (req, res) => {
-  const updateID = req.params.id;
+  const id = req.params.id;
   const updateText = req.body;
   try {
+    const post = await Post.findOne({ where: { id } });
+    if (!post) {
+      throw new Error();
+    }
     await Post.update(
       {
         title: updateText.title,
         writer: updateText.writer,
       },
       {
-        where: { id: updateID },
+        where: { id },
       }
     );
     res.status(200).json({
@@ -66,6 +72,10 @@ router.patch("/update/:id", async (req, res) => {
 router.get("/read/:id", async (req, res) => {
   const id = req.params.id;
   try {
+    const post = await Post.findOne({ where: { id } });
+    if (!post) {
+      throw new Error();
+    }
     const postReadText = await Post.findOne({
       where: { id },
       attributes: ["title", "writer"],
