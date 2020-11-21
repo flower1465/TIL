@@ -1,6 +1,8 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Domain extends Sequelize.Model {
+module.exports = class Domain extends (
+  Sequelize.Model
+) {
   static init(sequelize) {
     return super.init(
       {
@@ -13,7 +15,7 @@ module.exports = class Domain extends Sequelize.Model {
           allowNull: false,
         },
         clientSecret: {
-          type: Sequelize.STRING(36),
+          type: Sequelize.UUID,
           allowNull: false,
         },
       },
