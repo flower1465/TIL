@@ -1,9 +1,6 @@
 const router = require("express").Router();
 const { Post, User } = require("../models");
 
-// const jwt = require("jsonwebtoken");
-// const middleware = require("../middleware/token");
-
 router.post("/create", async (req, res) => {
   const text = req.body;
   try {
