@@ -1,9 +1,14 @@
 const router = require("express").Router();
+const middleware = require("../middleware/token");
 const { Post, User } = require("../models");
 
-router.post("/create", async (req, res) => {
+router.post("/create", middleware, async (req, res) => {
   const text = req.body;
+  const token = req.decoded;
   try {
+    if (!token) {
+      throw new Error();
+    }
     await Post.create({
       title: text.title,
       writer: text.writer,
@@ -21,7 +26,11 @@ router.post("/create", async (req, res) => {
 
 router.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;
+  //const token = req.decoded;
   try {
+    // if (!token) {
+    //   throw new Error();
+    // }
     const post = await Post.findOne({ where: { id } });
     if (!post) {
       throw new Error();
