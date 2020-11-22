@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const middleware = require("../middleware/token");
-const { Post, User } = require("../models");
+const { Post } = require("../models");
 
 router.post("/create", middleware, async (req, res) => {
   const text = req.body;
