@@ -26,11 +26,11 @@ router.post("/create", middleware, async (req, res) => {
 
 router.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;
-  //const token = req.decoded;
+  const token = req.decoded;
   try {
-    // if (!token) {
-    //   throw new Error();
-    // }
+    if (!token) {
+      throw new Error();
+    }
     const post = await Post.findOne({ where: { id } });
     if (!post) {
       throw new Error();
@@ -50,7 +50,11 @@ router.delete("/delete/:id", async (req, res) => {
 router.patch("/update/:id", async (req, res) => {
   const id = req.params.id;
   const updateText = req.body;
+  const token = req.decoded;
   try {
+    if (!token) {
+      throw new Error();
+    }
     const post = await Post.findOne({ where: { id } });
     if (!post) {
       throw new Error();
@@ -77,7 +81,11 @@ router.patch("/update/:id", async (req, res) => {
 
 router.get("/read/:id", async (req, res) => {
   const id = req.params.id;
+  const token = req.decoded;
   try {
+    if (!token) {
+      throw new Error();
+    }
     const post = await Post.findOne({ where: { id } });
     if (!post) {
       throw new Error();
