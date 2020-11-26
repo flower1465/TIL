@@ -24,7 +24,7 @@ router.post("/create", middleware, async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", middleware, async (req, res) => {
   const id = req.params.id;
   const token = req.decoded;
   try {
@@ -47,7 +47,7 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", middleware, async (req, res) => {
   const id = req.params.id;
   const updateText = req.body;
   const token = req.decoded;
@@ -79,7 +79,7 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 
-router.get("/read/:id", async (req, res) => {
+router.get("/read/:id", middleware, async (req, res) => {
   const id = req.params.id;
   const token = req.decoded;
   try {
