@@ -17,8 +17,8 @@ router.post("/mail", (req, res) => {
     const mailOptions = {
       from: "poodle2405@gmail.com",
       to: email,
-      subject: "Title",
-      text: "text",
+      subject: "HTML 보내기",
+      html: "<h1>HTML 보내기 성공</h1>",
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
