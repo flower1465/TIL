@@ -2,30 +2,30 @@ const nodemailer = require("nodemailer");
 const router = require("express").Router();
 const dotenv = require("dotenv").config();
 
-router.post("/mail", (req, res) => {
+router.post("/email", (req, res) => {
   try {
     const email = req.body.email;
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "poodle2405@gmail.com",
+        user: process.env.user,
         pass: process.env.password,
       },
     });
 
     const mailOptions = {
-      from: "poodle2405@gmail.com",
+      from: process.env.use,
       to: email,
-      subject: "HTML 보내기",
-      html: "<h1>HTML 보내기 성공</h1>",
+      subject: "이메일 전송",
+      text: "성공 ㅎㅎ",
     };
 
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.error("메일 보내기 에러 : ", err);
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
       } else {
-        console.log("성공 : ", info);
+        console.log("Email sent: " + info.response);
       }
     });
 
