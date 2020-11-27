@@ -40,4 +40,56 @@ router.post("/email", (req, res) => {
   }
 });
 
+router.post("/editmail", async (req, res, next) => {
+  const email = req.body.email;
+  try {
+    const user = await User.findOne({
+      where: { email },
+    });
+    if (user) {
+      const token = crypto.randomBytes(20).toString("hex");
+      const data = {
+        token,
+        userid: user.id,
+        ttl: 300,
+      };
+
+      EmailUser.create(data);
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.user,
+          pass: process.env.password,
+        },
+      });
+
+      const mailOptions = {
+        from: process.env.user,
+        to: email,
+        subject: "비밀번호 변경",
+        text: "This is the authentication code to find the password!",
+        html:
+          `<p>비밀번호 초기화를 위해서는 아래의 URL을 클릭하여 주세요.<p>` +
+          `<a href='http://localhost:2030/resetpasswrod/${token}'>비밀번호 새로 입력하기</a>`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+      return res.json(result);
+    } else {
+      return res.status(403).send("This account does not exist");
+    }
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 module.exports = router;
