@@ -6,8 +6,8 @@ module.exports = class User extends (
   static init(sequelize) {
     return super.init(
       {
-        email: {
-          type: Sequelize.STRING(50),
+        userId: {
+          type: Sequelize.STRING(30),
           allowNull: false,
         },
         password: {
