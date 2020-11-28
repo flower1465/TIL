@@ -70,10 +70,9 @@ router.post("/editmail", async (req, res, next) => {
         from: process.env.user,
         to: email,
         subject: "비밀번호 변경",
-        text: "This is the authentication code to find the password!",
         html:
-          `<p>비밀번호 초기화를 위해서는 아래의 URL을 클릭하여 주세요.<p>` +
-          `<a href='http://localhost:2030/resetpasswrod/${token}'>비밀번호 새로 입력하기</a>`,
+          `<p>비밀번호 초기화를 위해서 아래의 URL을 클릭하여 주세요.<p>` +
+          `<a href='http://localhost:3000/resetpasswrod/${token}'>비밀번호 변경하기</a>`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
