@@ -3,36 +3,30 @@
 
 using namespace std;
 
-void printMenu() {
-	cout << "---------------------" << endl;
-	cout << "CMyList 메뉴" << endl;
-	cout << "1 삽입" << endl;
-	cout << "2 출력" << endl;
-	cout << "0 종료" << endl;
-	cout << "---------------------" << endl;
-}
-
 int main() {
-	CMyList	list;
-	printMenu();
-	int a;
-	int b = 0;
+
+	char inputData[30];
+	CMyList list;
 	while (1) {
-		cout << "메뉴를 고르세요(숫자 입력) : ";
-		cin >> a;
-		cout << endl;
-		switch (a)
-		{
-		case 1:
-			cout << "삽입할 데이터를 입력해주세요 :";
-			cin >> b;
-			list.Insert(b);
-			cout << endl;
-		case 2:
-			list.PrintData();
+		consoleInit();
+		cin >> inputData;
+		if (!strcmp(inputData, "1") && !strcmp(inputData, "2") && !strcmp(inputData, "3")) {
+			cout << endl << "0, 1, 2 중 숫자를 입력하세요~!" << endl;
+			continue;
+		}
+		switch ((*inputData) - '0') {
 		case 0:
+			return 0;
+		case 1:
+			insertUserData(&list);
 			break;
+		case 2:
+			printUserData(&list);
+			break;
+		default:
+			cout << endl << "0, 1, 2 중 숫자를 입력하세요~!" << endl;
 		}
 	}
-	return	0;
+
+	return 0;
 }

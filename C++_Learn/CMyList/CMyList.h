@@ -9,30 +9,28 @@ struct Node {
 };
 
 class CMyList {
+private:
+	Node* head = nullptr;
+	Node* tail = nullptr;
 public:
-	CMyList() {
-
-	}
+	CMyList() {}
 	~CMyList() {
-		FreeNode();
+		FreeListData();
 	}
-	void Insert(int num) {
-		Node* newNode;
-		newNode = new Node;
-		newNode->data = num;
-		newNode->next = this->pHead;
-		this->pHead = newNode;
+	void InsertListData(Node* newNode) {
+		if (head == nullptr) {
+			head = newNode;
+		}
+		else {
+			tail->next = newNode;
+		}
+		tail = newNode;
 	}
-	void PrintData() {
-		Node* curNode = this->pHead;
+	void PrintListData() {
+		Node* curNode = this->head;
 		int nodeCount = 1;
 
-		if (curNode == nullptr) {
-			cout << "리스트가 없어연" << endl;
-			return;
-		}
-
-		cout << "CMyList 데이터 : ";
+		cout << endl << "CMyList 데이터 : ";
 		while (curNode->next != nullptr) {
 			cout << curNode->data << " - ";
 			curNode = curNode->next;
@@ -40,8 +38,26 @@ public:
 		}
 		cout << curNode->data << "  " << nodeCount << "개" << endl;
 	}
-	void FreeNode() {
-		Node* curNode = this->pHead;
+	int isOverLappingData(int testData) {
+		Node* curNode = this->head;
+		while (curNode != nullptr) {
+			if (curNode->data == testData) {
+				return 1;
+			}
+			curNode = curNode->next;
+		}
+		return 0;
+	}
+	int isEmpty() {
+		if (this->head == nullptr) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	void FreeListData() {
+		Node* curNode = this->head;
 		Node* delNode;
 		while (curNode != nullptr) {
 			delNode = curNode;
@@ -49,7 +65,40 @@ public:
 			delete delNode;
 		}
 	}
-private:
-	Node* pHead = nullptr;
-	Node* pTael = nullptr;
 };
+
+void consoleInit() {
+	puts("---------------------");
+	puts("CMyList 메뉴");
+	puts("1 삽입");
+	puts("2 출력");
+	puts("0 종료");
+	puts("---------------------");
+	cout << "메뉴를 고르세요(숫자 입력): ";
+}
+
+void insertUserData(CMyList* list) {
+	int inputData;
+	Node* newNode = new Node;
+	while (1) {
+		cout << endl << "삽입할 데이터를 입력해주세요 : ";
+		cin >> inputData;
+		if ((list->isOverLappingData(inputData))) {
+			cout << inputData << "는 중복입니다!" << endl;
+			continue;
+		}
+		newNode->data = inputData;
+		newNode->next = nullptr;
+		break;
+	}
+	list->InsertListData(newNode);
+	list->PrintListData();
+}
+
+void printUserData(CMyList* list) {
+	if (list->isEmpty()) {
+		cout << endl << "출력할 데이터가 없습니다." << endl;
+		return;
+	}
+	list->PrintListData();
+}
